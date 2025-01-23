@@ -15,7 +15,11 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(
       builder: (ctrl) {
-        return Scaffold(
+        return RefreshIndicator(
+          onRefresh: () async {
+            ctrl.fetchProducts();          
+          },
+          child: Scaffold(
           appBar: AppBar(
             title: Text(
               'Footwear Store',
@@ -38,11 +42,16 @@ class HomePage extends StatelessWidget {
                 height: 50,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: 5,
+                  itemCount: ctrl.productCategories.length,
                   itemBuilder: (context, index) {
-                    return Padding(
+                    return InkWell(
+                      onTap: () {
+                        ctrl.filterByCategory(ctrl.productCategories[index].name ?? 'Error');
+                      },
+                      child: Padding(
                       padding: const EdgeInsets.all(6),
-                      child: Chip(label: Text('Category $index')),
+                      child: Chip(label: Text(ctrl.productCategories[index].name ?? 'Error')),
+                    )
                     );
                   },
                 ),
@@ -50,15 +59,17 @@ class HomePage extends StatelessWidget {
               Row(
                 children: [
                   DropDownBtn(
-                    items: ['Rs: Low to High', 'Rs: High to Low'],
+                    items: ['GH₵: Low to High', 'GH₵: High to Low'],
                     selectedItemText: 'Sort',
-                    onSelected: (selected) {},
+                    onSelected: (selected) {
+                          ctrl.sortByPrice(ascending: selected == 'GH₵: Low to High' ? true : false);
+                    },
                   ),
                   Flexible(
                     child: MultiSelectDropDown(
-                      items: ['Item 1', 'Item 2', 'Item 3'],
+                      items: ['Adidas', 'Puma', 'Nike','AirForce'],
                       onSelectionChanged: (selectedItems) {
-                        // Handle selection change
+                         ctrl.filterByBrand(selectedItems);
                       },
                     ),
                   ),
@@ -75,18 +86,12 @@ class HomePage extends StatelessWidget {
                   itemCount: ctrl.products.length,
                   itemBuilder: (context, index) {
                     return ProductCard(
-                      name: ctrl.products[index].name ?? 'No name',
-                      imageUrl: ctrl.products[index].image ?? 'url',
-                      price: ctrl.products[index].price ?? 0,
+                      name: ctrl.productShowInUI[index].name ?? 'No name',
+                      imageUrl: ctrl.productShowInUI[index].image ?? 'url',
+                      price: ctrl.productShowInUI[index].price ?? 0,
                       offerTag: '20% off',
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                const ProductDescriptionPage(),
-                          ),
-                        );
+                        Get.to(ProductDescriptionPage(),arguments: {'data': ctrl.productShowInUI[index]}); //Passing data to the next page
                       },
                     );
                   },
@@ -94,7 +99,7 @@ class HomePage extends StatelessWidget {
               )
             ],
           ),
-        );
+        ));
       },
     );
   }
