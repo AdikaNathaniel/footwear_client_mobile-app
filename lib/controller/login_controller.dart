@@ -1,4 +1,4 @@
-import 'package:client_app/pages/home_page.dart';
+import '../pages/home_page.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +6,7 @@ import 'package:get_storage/get_storage.dart';
 import '../model/user/user.dart';
 import '../widgets/otp_txt_field.dart';
 import 'dart:math';
-import 'package:client_app/widgets/otp_txt_field.dart'; 
+// import 'package:client_app/widgets/otp_txt_field.dart'; 
 import 'package:otp_text_field_v2/otp_field_v2.dart';
 
 class LoginController extends GetxController {

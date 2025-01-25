@@ -1,5 +1,5 @@
-import 'package:client_app/controller/login_controller.dart';
-import 'package:client_app/pages/login_page.dart';
+import '../controller/login_controller.dart';
+import '../pages/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../widgets/otp_txt_field.dart'; // Adjust the path as necessary

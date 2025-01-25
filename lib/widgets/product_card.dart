@@ -37,7 +37,7 @@ class ProductCard extends StatelessWidget {
             ),
             SizedBox(height: 9),
             Text(
-              'Rs : $price',
+              'GH₵ : $price',
               style: TextStyle(
                 fontSize: 16,
                 overflow: TextOverflow.ellipsis,

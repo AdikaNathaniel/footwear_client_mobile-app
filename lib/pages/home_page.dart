@@ -1,6 +1,6 @@
-import 'package:client_app/pages/login_page.dart';
-import 'package:client_app/widgets/multi_select_drop_down.dart';
-import 'package:client_app/widgets/product_card.dart';
+import '../pages/login_page.dart';
+import '../widgets/multi_select_drop_down.dart';
+import '../widgets/product_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:get/get.dart';
@@ -67,7 +67,7 @@ class HomePage extends StatelessWidget {
                   ),
                   Flexible(
                     child: MultiSelectDropDown(
-                      items: ['Adidas', 'Puma', 'Nike','AirForce'],
+                      items: ['Boots', 'Beach Slides','Sneakers','High Heels'],
                       onSelectionChanged: (selectedItems) {
                          ctrl.filterByBrand(selectedItems);
                       },
@@ -78,12 +78,11 @@ class HomePage extends StatelessWidget {
               Expanded(
                 child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2, // Reduced from 8 for better mobile view
-                    //Change back to 8 if it is not suitable
+                    crossAxisCount: 8,
                     childAspectRatio: 0.8,
                     mainAxisSpacing: 8,
                   ),
-                  itemCount: ctrl.products.length,
+                  itemCount: ctrl.products.length,   //ctrl.products.length
                   itemBuilder: (context, index) {
                     return ProductCard(
                       name: ctrl.productShowInUI[index].name ?? 'No name',

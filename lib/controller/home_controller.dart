@@ -56,8 +56,8 @@ class HomeController extends GetxController {
 
       products.clear();
       productCategories.assignAll(retrievedCategories);
-      // Get.snackbar('Success', 'Category fetched successfully',
-      //     colorText: Colors.green);
+       Get.snackbar('Success', 'Category fetched successfully',
+          colorText: Colors.green);
 
       productShowInUI.assignAll(products);
     } catch (e) {
